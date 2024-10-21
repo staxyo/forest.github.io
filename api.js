@@ -45,17 +45,23 @@ let allCharacters = [];
 let characterRuns = [];
 let altCharacterRuns = [];
 
-// Function to calculate the time until next Wednesday 6 AM CEST
+// Function to calculate the time until next Wednesday 5:30 AM CEST
 const calculateTimeUntilNextReset = () => {
   const now = new Date();
   const nextReset = new Date(now);
   
-  // Set nextReset to the next Wednesday 6 AM CEST
+  // Set nextReset to the next Wednesday 5:30 AM CEST
   nextReset.setDate(now.getDate() + ((3 - now.getDay() + 7) % 7)); // 3 is Wednesday
-  nextReset.setHours(6, 0, 0, 0); // 6:00 AM
+  nextReset.setHours(5, 30, 0, 0); // 5:30 AM
   
   const timeUntilReset = nextReset - now;
   return timeUntilReset > 0 ? timeUntilReset : timeUntilReset + 7 * 24 * 60 * 60 * 1000;
+};
+
+// Function to display messages on the webpage instead of the console
+const displayMessageOnWebpage = (message) => {
+  const messageElement = document.getElementById('next_reset_message');
+  messageElement.innerText = message;
 };
 
 // Fetching data for characters
@@ -190,20 +196,28 @@ const fetchDataAndUpdateAlt = () => {
     });
 };
 
-// Schedule weekly data save before reset
 const scheduleWeeklyDataSave = () => {
   const timeUntilNextReset = calculateTimeUntilNextReset();
-  console.log(`Next data save scheduled in: ${timeUntilNextReset / 1000 / 60} minutes`);
-
+  
   setTimeout(() => {
-    saveDataToLocalStorage();  // Save current week data to past week data
-    scheduleWeeklyDataSave();  // Reschedule for the next week
+    saveDataToLocalStorage();
+    displayMessageOnWebpage('Data has been saved for this week.');
+    scheduleWeeklyDataSave(); // Reschedule for next week after saving
   }, timeUntilNextReset);
+
+  // Display when the next save is scheduled on the webpage
+  displayMessageOnWebpage(`Next data save scheduled in: ${Math.round(timeUntilNextReset / 1000 / 60)} minutes`);
 };
 
-window.onload = () => {
-  fetchDataAndUpdate(); // Load current week data
-  loadPastWeekData();   // Load past week data and display
-  fetchDataAndUpdateAlt();
-  scheduleWeeklyDataSave(); // Start weekly save schedule
+const scheduleNextUpdate = () => {
+  console.log('Scheduling next update...');
+  const timeUntilNextWednesday = calculateTimeUntilNextReset();
+  setTimeout(fetchDataAndUpdate, timeUntilNextWednesday);
+  setTimeout(fetchDataAndUpdateAlt, timeUntilNextWednesday);
 };
+
+// Initial function calls
+fetchDataAndUpdate();
+fetchDataAndUpdateAlt();
+loadPastWeekData();
+scheduleWeeklyDataSave(); // Start weekly save schedule
