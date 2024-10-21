@@ -124,32 +124,31 @@ const updateTable = (tableId, dataArray) => {
     const numRunsCell = row.insertCell();
 
     nameCell.innerHTML = character.name;
+    
+    // Create the dungeon cell content, making the 1st, 4th, and 8th runs bold
     dungeonCell.innerHTML = character.runs
-      .map(run => ('' + run.mythic_level).slice(-2))
-      .reduce((acc, level, index) => {
-        if (index === 1) {
-          acc.push([level + ',']);
-        } else if (index === 3 || index === 7) {
-          acc[acc.length - 1].push(level + (index === 3 ? ',' : ''));
-          acc.push([]);
-        } else {
-          acc[acc.length - 1].push(level + ',');
+      .map((run, index) => {
+        let runLevel = '' + run.mythic_level; // Convert mythic level to string
+        if (index === 0 || index === 3 || index === 7) {
+          // Bold the 1st (index 0), 4th (index 3), and 8th (index 7) run
+          runLevel = `<strong>${runLevel}</strong>`;
         }
-        return acc;
-      }, [[]])
-      .map(group => group.join('').replace(/,$/, ' '))
-      .join('|| ');
+        return runLevel;
+      })
+      .join(', '); // Join runs with ' || ' separator
 
-    numRunsCell.innerHTML = character.numRuns > 0 ?
-      character.numRuns :
-      `<img src='starege.png' class='numRunsImage'>`;
+    numRunsCell.innerHTML = character.numRuns > 0
+      ? character.numRuns
+      : `<img src='starege.png' class='numRunsImage'>`;
 
+    // Color the cells based on class
     const color = classColors[character.class] || 'white';
     nameCell.style.color = color;
     dungeonCell.style.color = color;
     numRunsCell.style.color = color;
   });
 };
+
 
 // Search function to dynamically filter table rows
 const searchTable = () => {
