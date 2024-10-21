@@ -100,4 +100,6 @@ th {
   border: 1px solid #ccc; 
   border-radius: 4px; 
   margin-top: 20px;
+  background-color: #333333;
+  color: #FFFFFF;
 }
