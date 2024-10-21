@@ -41,7 +41,8 @@ td {
 }
 
 #results-container,
-#alt-results-container {
+#alt-results-container,
+#past-results-container {
   flex-basis: 50%;
   justify-content: center;
 }
@@ -65,7 +66,7 @@ th {
 }
 
 #results-container table td:nth-child(3),
-#alt-results-container table td:nth-child(3) {
+#past-results-container table td:nth-child(3) {
   text-align: center;
 }
 
