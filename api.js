@@ -151,6 +151,32 @@ const updateTable = (tableId, dataArray) => {
   });
 };
 
+// Search function to dynamically filter table rows
+const searchTable = () => {
+  const input = document.getElementById('searchBar').value.toLowerCase();
+  const tableIds = ['current_results', 'past_results']; // Use tbody IDs directly
+
+  tableIds.forEach(tableId => {
+    const tableBody = document.getElementById(tableId);
+    const rows = tableBody.getElementsByTagName('tr');
+
+    for (let i = 0; i < rows.length; i++) {
+      const nameCell = rows[i].getElementsByTagName('td')[0]; // Get the character name from the first cell
+      if (nameCell) {
+        const characterName = nameCell.textContent || nameCell.innerText;
+        if (characterName.toLowerCase().indexOf(input) > -1) {
+          rows[i].style.display = ""; // Show row if it matches the search
+        } else {
+          rows[i].style.display = "none"; // Hide row if it doesn't match
+        }
+      }
+    }
+  });
+};
+
+
+
+
 // Saving the current week's data and archiving the past week
 const saveDataToLocalStorage = () => {
   const currentData = JSON.stringify(characterRuns);
