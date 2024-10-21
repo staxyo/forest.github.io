@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Forest Weekly Runs</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="icon" href="logo.png">
+  </head>
+  <body>
+    <div class="ouai">
+      <h1>Forest</h1>
+    </div>
+  
+    <div id="table-container">
+      <div id="results-container">
+        <h1>Current Week Runs</h1>
+        <table id="current_table" class="table">
+          <thead>
+            <tr>
+              <th>Character</th>
+              <th>Highest Mythic Plus Runs</th>
+              <th class="Nb">Number of Keys</th>
+            </tr>
+          </thead>
+          <tbody id="current_results"></tbody>
+        </table>
+      </div>
+    
+      <div id="past-results-container">
+        <h1>Past Week Runs</h1>
+        <table id="past_table" class="table">
+          <thead>
+            <tr>
+              <th>Character</th>
+              <th>Highest Mythic Plus Runs</th>
+              <th class="Nb">Number of Keys</th>
+            </tr>
+          </thead>
+          <tbody id="past_results"></tbody>
+        </table>
+      </div>
+    </div>
+    
+
+    <script src="api.js"></script>  
+  </body>
+</html>

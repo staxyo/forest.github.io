@@ -1,0 +1,94 @@
+body {
+  background-color: #333333;
+}
+
+h1 {
+  color: white;
+  text-align: center;
+}
+
+th, .table td {
+  color: white;
+  height: 20px;
+  padding: 7px;
+}
+
+td {
+  color: black;
+  font-size: 20px;
+}
+
+.table {
+  border-collapse: collapse;
+  width: 40%;
+}
+
+.table td,
+.table th {
+  border: 1px solid #ddd;
+  white-space: nowrap; /* Add this to prevent line breaks */
+  overflow: hidden; /* Add this to hide overflowing content */
+  text-overflow: ellipsis; /* Add this to display ellipsis (...) for overflowing content */
+}
+
+.table th {
+  font-weight: bold;
+}
+
+#table-container {
+  display: flex;
+  justify-content: center;
+}
+
+#results-container,
+#alt-results-container {
+  flex-basis: 50%;
+  justify-content: center;
+}
+
+#alt-results,
+#current_table,
+#last_week_table {
+  min-width: 500px;
+  margin: auto;
+}
+
+table,
+td,
+th {
+  height: 10px;
+}
+
+#countdown {
+  color: #fff;
+  font-weight: bold;
+}
+
+#results-container table td:nth-child(3),
+#alt-results-container table td:nth-child(3) {
+  text-align: center;
+}
+
+#ouai {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+  margin: auto;
+}
+
+.numRunsImage {
+  width: 30px;
+  height: 30px;
+}
+
+/* Add styles for alt characters table */
+#alt-results table td,
+#alt-results table th {
+  border: 1px solid #ddd;
+  padding: 7px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
