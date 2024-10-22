@@ -173,9 +173,6 @@ const searchTable = () => {
   });
 };
 
-
-
-
 // Saving the current week's data and archiving the past week
 const saveDataToLocalStorage = () => {
   const currentData = JSON.stringify(characterRuns);
@@ -221,6 +218,18 @@ const fetchDataAndUpdateAlt = () => {
     });
 };
 
+const convertTimeToDHMS = (milliseconds) => {
+  const seconds = Math.floor(milliseconds / 1000);
+  const minutes = Math.floor(seconds / 60);
+  const hours = Math.floor(minutes / 60);
+  const days = Math.floor(hours / 24);
+
+  const remainingHours = hours % 24;
+  const remainingMinutes = minutes % 60;
+
+  return `${days} days, ${remainingHours} hours, ${remainingMinutes} minutes`;
+};
+
 const scheduleWeeklyDataSave = () => {
   const timeUntilNextReset = calculateTimeUntilNextReset();
   
@@ -230,9 +239,11 @@ const scheduleWeeklyDataSave = () => {
     scheduleWeeklyDataSave(); // Reschedule for next week after saving
   }, timeUntilNextReset);
 
-  // Display when the next save is scheduled on the webpage
-  displayMessageOnWebpage(`Next data save scheduled in: ${Math.round(timeUntilNextReset / 1000 / 60)} minutes`);
+  // Convert time into days, hours, and minutes and display it on the webpage
+  const timeRemainingMessage = convertTimeToDHMS(timeUntilNextReset);
+  displayMessageOnWebpage(`Next data save scheduled in: ${timeRemainingMessage}`);
 };
+
 
 const scheduleNextUpdate = () => {
   console.log('Scheduling next update...');
