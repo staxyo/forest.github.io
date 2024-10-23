@@ -176,14 +176,16 @@ const searchTable = () => {
 // Saving the current week's data and archiving the past week
 const saveDataToLocalStorage = () => {
   const currentData = JSON.stringify(characterRuns);
-  localStorage.setItem('characterRuns', currentData);
 
-  // Move current week's data to pastCharacterRuns
+  // Get current week's data before overwriting
   const pastData = localStorage.getItem('characterRuns');
+  
   if (pastData) {
+    // Save past week's data before overwriting current week's data
     localStorage.setItem('pastCharacterRuns', pastData);
   }
 
+  // Save current week's data to localStorage
   localStorage.setItem('characterRuns', currentData);
 };
 
@@ -195,6 +197,7 @@ const loadPastWeekData = () => {
     updateTable('past_results', pastCharacterRuns); // Update the past week's table
   }
 };
+
 
 const fetchDataAndUpdate = () => {
   fetchData(characters, characterRuns)
